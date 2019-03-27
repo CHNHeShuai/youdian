@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <form method="post" action="" th:action="@{/youdian/updateUsers}" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${users.id}">
+            <h2>修改管理员信息</h2>
+            <div class="form-group">
+              <label for="username" style="color: #f854ec">用户名</label>
+              <input id="username" class="form-control" th:value="${users.username}" name="username" type="text" style="height: 50px" placeholder="简介">
+            </div>
+            <div class="form-group">
+              <label for="password" style="color: #f854ec">密码</label>
+              <input id="password" class="form-control"  name="password" type="password" style="height: 50px" >
+            </div>
+            <div>
+              <label for="image" style="color: #f854ec">图片</label>
+              <div>
+                <img src="" width="250px" height="150px" th:src="@{${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath() + '/'}+${users.image}}" >
+              </div>
+              <input id="image" class="form-control" name="image" style="height:50px;" type="file">
+            </div>
+            <div class="form-group">
+              <label for="telephone" style="color: #f854ec">电话</label>
+              <input id="telephone" class="form-control" th:value="${users.telephone}" name="telephone" style="height: 50px" type="text" placeholder="价值观">
+            </div>
+            <div class="form-group">
+              <label for="email"  style="color: #f854ec">邮箱</label>
+              <input id="email" class="form-control" name="email" th:value="${users.email}" type="text" style="height: 50px" placeholder="口号">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">修改</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+
+  <script>NProgress.done()</script>
+</body>
+</html>

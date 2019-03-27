@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>悠点装饰</title>
+  <link rel="shortcut icon" href="favicon.ico" th:href="@{/assets/img/favicon.ico}" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css" th:href="@{/assets/vendors/bootstrap/css/bootstrap.css}">
+  <!-- <link rel="stylesheet" href="../assets/css/admin.css"> -->
+</head>
+<!-- <style></style> -->
+
+<body style="overflow: auto">
+  <div class="login" style=" position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 950px;
+  background-image:url(../upload/logobg.jpg);
+  background-size:100% 100%;">
+    <div
+      style="margin: 0px auto 30px; max-width: 200px;max-height: 200px;background: linear-gradient(to top bottom, #4394d6, #83bde5);">
+      <img  th:src="@{/upload/logo1.png}" src="../upload/logo1.png" alt="" width="100%" height="100%">
+    </div>
+    <div style="margin:15px auto 0; max-width: 580px;font-size:24px">
+      <p>杭 州 悠 點 装 飾 設 計 有 限 公 司 信 息 化 管 理 系 統</p>
+    </div>
+    <div class="login-wrap" style="position: relative;
+
+    width: 740px;
+    margin: 10px auto;
+    padding: 40px 40px;
+    border-radius: 4px;
+    height: 400px;">
+      <div style="margin: 0px auto;width: 280px;height: 280px;float:left;">
+        <img  th:src="@{/upload/logo.png}" src="../upload/logo.png" alt="" width="280" height="280">
+      </div>
+      <form
+        style="margin-top:0px;width: 380px;height:280px;padding: 40px 40px;float:right;background-color:rgba(255,255,255,0.8);"
+        class="from" th:action="@{/youdian/login}" method="post">
+        <div style="margin-bottom: 15px;text-align: center;">
+          <span style="color:#1080cc">用户登录</span> <span style="color:#b8b8b8;margin-left:5px;">User Login</span>
+        </div>
+        <div class="form-group">
+          <label for="username" class="sr-only">用户名</label>
+          <input id="username" type="text" class="form-control" name="username" placeholder="用户名" autofocus>
+          <span  style="color: red" th:text="${errorUsername}"></span>
+        </div>
+        <div class="form-group">
+          <label for="password" class="sr-only">密码</label>
+          <input id="password" type="password" class="form-control" name="password" placeholder="密码">
+          <span  style="color: red"  th:text="${errorPassword}"></span>
+        </div>
+        <input class="btn btn-info btn-block" type="submit"></input>
+      </form>
+
+    </div>
+    <div
+      style="position: absolute;bottom: 80px;font-size: 18px;color: #fff;left: 50%;width: 320px;margin-left: -160px;">
+      <p>©2019悠点设计-创意文化传媒 版权所有</p>
+      <p>官方网站：<a href="#" style="font-size: 18px;color: #fff;">www.1233.com</a></p>
+    </div>
+  </div>
+</body>
+
+</html>

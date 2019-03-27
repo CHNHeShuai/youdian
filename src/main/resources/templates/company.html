@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <form method="post" action="/youdian/updateCompany" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="1">
+            <h2>编辑公司信息</h2>
+            <div class="form-group">
+              <label for="jianjie" style="color: #f854ec">简介</label>
+              <input id="jianjie" class="form-control" th:value="${company.jianjie}" name="jianjie" type="text" style="height: 50px" placeholder="简介">
+            </div>
+            <div class="form-group">
+              <label for="linian" style="color: #f854ec">理念</label>
+              <input id="linian" class="form-control" th:value="${company.linian}" name="linian" type="text" style="height: 50px" placeholder="理念">
+            </div>
+            <div class="form-group">
+              <label for="jiazhiguan" style="color: #f854ec">价值观</label>
+              <input id="jiazhiguan" class="form-control" th:value="${company.jiazhiguan}" name="jiazhiguan" style="height: 50px" type="text" placeholder="价值观">
+            </div>
+            <div class="form-group">
+              <label for="kouhao"  style="color: #f854ec">口号</label>
+              <input id="kouhao" class="form-control" name="kouhao" th:value="${company.kouhao}" type="text" style="height: 50px" placeholder="口号">
+            </div>
+            <div class="form-group">
+              <label for="kouhao"  style="color: #f854ec">公司电话</label>
+              <input id="telephone" class="form-control" name="telephone" th:value="${company.telephone}" type="text" style="height: 50px" placeholder="口号">
+            </div>
+            <div class="form-group">
+              <label for="kouhao"  style="color: #f854ec">公司邮箱</label>
+              <input id="email" class="form-control" name="email" th:value="${company.email}" type="text" style="height: 50px" placeholder="口号">
+            </div>
+            <div class="form-group">
+              <label for="kouhao"  style="color: #f854ec">公司地址</label>
+              <input id="address" class="form-control" name="address" th:value="${company.address}" type="text" style="height: 50px" placeholder="口号">
+            </div>
+            <div>
+              <label for="historyimage" style="color: #f854ec">公司营业执照</label>
+              <div>
+                <img src="" width="250px" height="150px" th:src="@{${company.historyimage}}" >
+              </div>
+              <input id="historyimage" class="form-control" name="historyimage" style="height:50px;" type="file">
+            </div>
+            <div class="form-group" >
+              <label  style="color: #f854ec;display: block ">发展历程</label>
+              <textarea id="history" style="height: 220px;width:540px;" th:text="${company.history}" name="history" placeholder="公司发展历程" > </textarea>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">修改</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+
+  <script>NProgress.done()</script>
+</body>
+</html>

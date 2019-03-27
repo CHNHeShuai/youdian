@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row" >
+        <h2>客户列表</h2>
+        <div class="col-md-8" >
+          <table  class="table table-striped table-bordered table-hover">
+            <thead >
+               <tr style="text-align: center;height: 60px">
+                <th style="text-align: center">序号</th>
+                <th style="text-align: center">用户名</th>
+                <th style="text-align: center">电话</th>
+                <th style="text-align: center">联系时间</th>
+                <th style="text-align: center">留言</th>
+                <th class="text-center" width="100">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="height: 60px" th:each="customer,index:${customerList}">
+                <td style="text-align: center" th:text="${index.count}"></td>
+                <td style="text-align: center" th:text="${customer.username}"></td>
+                <td style="text-align: center" th:text="${customer.telephone}"></td>
+                <td style="text-align: center" th:text="${customer.linktime}"></td>
+                <td style="text-align: center" th:text="${customer.gbook}"></td>
+                <td class="text-center">
+                  <a th:onclick="'javascript:del(\''+${customer.id}+'\');'" class="btn btn-danger btn-xs">删除</a>
+                </td>
+                <script type="text/javascript">
+                    function del(id){
+                        var message = confirm("您确定要删除该数据吗？");
+                        if (message == true){
+                            window.location.href="/youdian/deleteCustomer?id="+id;
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                </script>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+
+  <script>NProgress.done()</script>
+</body>
+</html>

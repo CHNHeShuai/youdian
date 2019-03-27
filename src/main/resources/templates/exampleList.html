@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <h2>项目列表</h2>
+        <div class="col-md-10">
+          <table style="text-align: center" class="table table-striped table-bordered table-hover">
+            <thead>
+               <tr style="height: 60px">
+                <th style="text-align: center">序号</th>
+                <th style="text-align: center">标题</th>
+                <th style="text-align: center">图片</th>
+                <th style="text-align: center">介绍</th>
+                <th style="text-align: center">访问量</th>
+                <th style="text-align: center">分类</th>
+                 <th style="text-align: center">发布时间</th>
+                 <th class="text-center" width="100">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="height: 60px" th:each="example,index:${pageInfo.list}">
+                <td th:text="${index.count}"></td>
+                <td th:text="${example.title}"></td>
+                <td style="text-align: center ;width: auto;height: 90px">
+                  <img style="height: 60px ;width: 140px" th:src="@{${example.image}}">
+                </td>
+                <td th:text="${example.introduct}"></td>
+                <td th:text="${example.pageview}"></td>
+                <td th:text="${example.cname}"></td>
+                <td th:text="${example.createtime}"></td>
+                <td class="text-center">
+                  <a th:href="@{/youdian/toUpdateExample(id=${example.id})}" class="btn btn-default btn-xs">编辑</a>
+                  <a th:onclick="'javascript:del(\''+${example.id}+'\');'" class="btn btn-danger btn-xs">删除</a>
+                </td>
+                <script type="text/javascript">
+                    function del(id){
+                        var message = confirm("您确定要删除该数据吗？");
+                        if (message == true){
+                            window.location.href="/youdian/deleteExample?id="+id;
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                </script>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagelist">
+            <a title="Total record" th:text="${pageInfo.total}+' 个案例'">&nbsp;</a>&nbsp;&nbsp;<b th:text="${pageInfo.pages}+' 页'">&nbsp;</b> &nbsp;&nbsp;
+            <a th:href="@{/youdian/exampleList(currentPage=${pageInfo.navigateFirstPage})}">首页</a>&nbsp;
+            <a th:href="@{/youdian/exampleList(currentPage=${pageInfo.prePage})}">上一页</a>&nbsp;
+            <a th:each="pageNum:${pageInfo.navigatepageNums}" th:href="@{/youdian/exampleList(currentPage=${pageNum})}" th:text="${pageNum}+' '" ></a>
+            <a th:href="@{/youdian/exampleList(currentPage=${pageInfo.nextPage})}">下一页</a>&nbsp;
+            <a th:href="@{/youdian/exampleList(currentPage=${pageInfo.navigateLastPage})}">尾页</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+  <script>NProgress.done()</script>
+</body>
+</html>

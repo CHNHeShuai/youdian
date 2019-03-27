@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+
+<body style="overflow: hidden;">
+    <script>NProgress.start()</script>
+    <!--引入边缘部分-->
+    <div  style="width:180px;height:100% ;float:left">
+
+        <div class="aside"   th:include="aside :: aside"></div>
+    </div>
+    <div  style="width:90.6%;height:100% ;float:right;">
+        <img style="width: 100%;height: 100%;" th:src="@{/assets/img/welcome.png}">
+    </div>
+    <script>NProgress.done()</script>
+</body>
+</html>

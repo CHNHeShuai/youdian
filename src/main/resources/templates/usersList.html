@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <h2>管理员信息查询</h2>
+        <div class="col-md-8">
+          <table style="text-align: center" class="table table-striped table-bordered table-hover">
+            <thead>
+               <tr style="height: 60px">
+                <th style="text-align: center">序号</th>
+                <th style="text-align: center">用户名</th>
+                <th style="text-align: center">图片</th>
+                <th style="text-align: center">电话</th>
+                <th style="text-align: center">邮箱</th>
+                <th class="text-center" width="100">操作</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr style="height: 60px" th:each="users,index:${usersList}">
+                <td th:text="${index.count}"></td>
+                <td th:text="${users.username}"></td>
+                <td>
+                  <img style="height: 60px ;width: 140px" th:src="@{${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath() + '/'}+${users.image}}">
+                </td>
+                <td th:text="${users.telephone}">1</td>
+                <td th:text="${users.email}">1</td>
+                <td class="text-center">
+                  <div th:switch="${session.users.id}">
+                    <div th:case="1">
+                      <a  th:onclick="'javascript:update('+${users.id}+','+${session.users.id}+');'" class="btn btn-default btn-xs">编辑</a>
+                      <a href="#" th:onclick="'javascript:del(\''+${users.id}+'\');'"  class="btn btn-danger btn-xs">删除</a>
+                    </div>
+                    <div th:case="*">
+                      <a  th:onclick="'javascript:update('+${users.id}+','+${session.users.id}+');'" class="btn btn-default btn-xs">编辑</a>
+                    </div>
+                  </div>
+                </td>
+                <script type="text/javascript">
+                    function del(id){
+                        if(id!=1){
+                            var message = confirm("您确定要删除该数据吗？");
+                            if (message == true){
+                                window.location.href="/youdian/deleteUsers?id="+id;
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            alert("禁止删除最高权限用户")
+                            return false;
+                        }
+                    }
+                    function update(id,sid){
+                        console.log(sid)
+                        if(id==sid){
+                            var message = confirm("您确定要修改用户信息吗？");
+                            if (message == true){
+                                window.location.href="/youdian/toUpdateUsers?id="+id;
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            alert("禁止修改其他用户信息")
+                            return false;
+                        }
+                    }
+                </script>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div th:switch="${session.users.id}">
+        <div class="col-md-4" th:case="1">
+          <h3>添加管理员</h3>
+          <form th:action="@{/youdian/addUsers}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username" style="color: #f854ec;">管理员姓名</label>
+              <input id="username" style="height: 50px;" class="form-control" name="username" type="text" >
+            </div>
+            <div class="form-group">
+              <label for="password" style="color: #f854ec;">密码</label>
+              <input id="password" style="height: 50px;" class="form-control" name="password" type="password" >
+            </div>
+            <div class="form-group">
+              <label for="image" style="color: #f854ec;">管理员照片</label>
+              <input id="image" style="height: 50px;" class="form-control" name="image" type="file" >
+            </div>
+            <div class="form-group">
+              <label for="telephone" style="color: #f854ec;">联系方式</label>
+              <input id="telephone" style="height: 50px;" class="form-control" name="telephone" type="text" >
+            </div>
+            <div class="form-group">
+              <label for="email" style="color: #f854ec;">邮箱</label>
+              <input id="email" style="height: 50px;" class="form-control" name="email" type="text" >
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">添加</button>
+            </div>
+          </form>
+        </div>
+        <div class="logo" th:case="*">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+  <script>NProgress.done()</script>
+</body>
+</html>

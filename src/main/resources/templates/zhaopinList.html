@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <h2>招聘信息管理</h2>
+        <div class="col-md-8">
+          <table style="text-align: center" class="table table-striped table-bordered table-hover">
+            <thead>
+               <tr style="height: 60px">
+                <th style="text-align: center">序号</th>
+                <th style="text-align: center">招聘标题</th>
+                <th style="text-align: center">职务</th>
+                <th style="text-align: center">发布时间</th>
+                <th style="text-align: center">岗位职责</th>
+                <th style="text-align: center">任职资格</th>
+                <th class="text-center" width="100">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="height: 60px" th:each="zhaopin,index:${zhaopinList}">
+                <td th:text="${index.count}"></td>
+                <td th:text="${zhaopin.title}"></td>
+                <td th:text="${zhaopin.job}">1</td>
+                <td th:text="${zhaopin.createtime}">1</td>
+                <td th:text="${zhaopin.task}">1</td>
+                <td th:text="${zhaopin.must}">1</td>
+                <td class="text-center">
+                  <a th:href="@{/youdian/toUpdateZhaopin(id=${zhaopin.id})}" class="btn btn-default btn-xs">编辑</a>
+                  <a th:onclick="'javascript:del(\''+${zhaopin.id}+'\');'" class="btn btn-danger btn-xs">删除</a>
+                </td>
+                <script type="text/javascript">
+                    function del(id){
+                        var message = confirm("您确定要删除该数据吗？");
+                        if (message == true){
+                            window.location.href="/youdian/deleteZhaopin?id="+id;
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                </script>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col-md-4">
+          <form th:action="@{/youdian/insertZhaopin}" method="post">
+            <div class="form-group">
+              <label for="title" style="color: #f854ec;">招聘标题</label>
+              <input id="title" class="form-control" style="height: 50px" name="title" type="text" placeholder="招聘一:">
+            </div>
+            <div class="form-group">
+              <label for="job" style="color: #f854ec;">职务</label>
+              <input id="job" class="form-control" style="height: 50px" name="job" type="text" placeholder="设计总监">
+            </div>
+            <div class="form-group">
+              <label for="task" style="color: #f854ec;">岗位职责</label>
+              <textarea id="task" class="form-control" style="height: 150px" name="task" type="text" placeholder="负责设计团队设。。。"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="must" style="color: #f854ec;">任职要求</label>
+              <textarea id="must" class="form-control" style="height: 150px" name="must" type="text" placeholder="5年以上工作经验。。。"></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">添加</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+  <script>NProgress.done()</script>
+</body>
+</html>

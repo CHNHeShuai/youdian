@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>悠点装饰后台管理</title>
+    <link rel="shortcut icon" href="favicon.ico" th:href="@{/assets/img/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" href="" th:href="@{/assets/vendors/bootstrap/css/bootstrap.css}" >
+    <link rel="stylesheet" href="" th:href="@{/assets/vendors/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" href="" th:href="@{/assets/vendors/nprogress/nprogress.css}"         >
+    <link rel="stylesheet" href="" th:href="@{/assets/css/admin.css}">
+    <script src="" th:src="@{/assets/vendors/jquery/jquery.js}"></script>
+    <script src="" th:src="@{/assets/vendors/bootstrap/js/bootstrap.js}"></script>
+    <script src="" th:src="@{/assets/vendors/nprogress/nprogress.js}"></script>
+</head>
+<body>
+
+<div class="aside" th:fragment="aside">
+    <div class="profile">
+        <img class="avatar" th:src="@{${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath() + '/'}+${session.users.image}}">
+        <span class="name" style="color: #3cf828;display:block" th:text="${session.users.username}"></span>
+    </div>
+    <ul class="nav">
+        <li>
+            <a  th:href="@{/youdian/usersList}"><i class="fa fa-dashboard"></i>管理员信息</a>
+        </li>
+        <li>
+            <a href="/youdian/getCompanyById?id=1" th:href="@{/youdian/getCompanyById(id=1)}"><i class="fa fa-dashboard"></i>公司管理</a>
+        </li>
+        <li>
+            <a href="/youdian/categoryList" th:href="@{/youdian/categoryList}" ><i class="fa fa-dashboard"></i>案例管理</a>
+        </li>
+        <li>
+            <a href="#menu-project" class="collapsed" data-toggle="collapse">
+                <i class="fa fa-thumb-tack"></i>项目管理<i class="fa fa-angle-right"></i>
+            </a>
+            <ul id="menu-project" class="collapse">
+                <li><a href="/youdian/exampleList" th:href="@{/youdian/exampleList}">项目列表</a></li>
+                <li><a href="" th:href="@{/youdian/toInsertExample}">添加项目</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/youdian/zhaopinList" th:href="@{/youdian/zhaopinList}"><i class="fa fa-dashboard"></i>招聘管理</a>
+        </li>
+        <li>
+            <a href="/youdian/welfareList" th:href="@{/youdian/welfareList}"><i class="fa fa-dashboard"></i>福利管理</a>
+        </li>
+        <li>
+            <a href="/youdian/stateList" th:href="@{/youdian/stateList}"><i class="fa fa-dashboard"></i>动态管理</a>
+        </li>
+        <li>
+            <a href="/youdian/bannerList" th:href="@{/youdian/bannerList}"><i class="fa fa-dashboard"></i>轮播图管理</a>
+        </li>
+        <li>
+            <a href="/youdian/customerList" th:href="@{/youdian/customerList}"><i class="fa fa-dashboard"></i>客户列表</a>
+        </li>
+        <li>
+            <a href="/youdian/friendList" th:href="@{/youdian/friendList}"><i class="fa fa-dashboard"></i>合作伙伴列表</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

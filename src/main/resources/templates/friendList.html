@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <h2>合作伙伴管理</h2>
+        <div class="col-md-6">
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+              <th style="text-align: center">序号</th>
+              <th style="text-align: center">公司姓名</th>
+              <th style="text-align: center" >公司图片</th>
+              <th class="text-center" width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="friend,index:${friendList}">
+              <td style="text-align: center;width: auto" th:text="${index.count}"></td>
+              <td style="text-align: center;width: auto" th:text="${friend.companyname}"></td>
+              <td style="text-align: center ;width: auto;height: 90px"><img style="height: 60px ;width: 140px" th:src="@{${friend.image}}"></td>
+              <td class="text-center">
+                <a href="#" th:onclick="'javascript:del(\''+${friend.id}+'\');'"  class="btn btn-danger btn-xs">删除</a>
+              </td>
+              <script type="text/javascript">
+                  function del(id){
+                      var message = confirm("您确定要删除该数据吗？");
+                      if (message == true){
+                          window.location.href="/youdian/deleteFriend?id="+id;
+                          return true;
+                      }else{
+                          return false;
+                      }
+                  }
+              </script>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col-md-4">
+          <form th:action="@{/youdian/addFriend}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="companyname">公司名称</label>
+              <input id="companyname" style="height: 50px;" class="form-control" name="companyname" type="text" >
+            </div>
+            <div class="form-group">
+              <label for="image">公司图片</label>
+              <input id="image" style="height: 50px;" class="form-control" name="image" type="file" >
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">添加</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+
+  <script>NProgress.done()</script>
+</body>
+</html>

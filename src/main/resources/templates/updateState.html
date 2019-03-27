@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head">
+  <script type="text/javascript" src="../static/assets/wangeditor/release/wangEditor.js"></script>
+  <script>
+      var E = window.wangEditor;
+      //这里的id为<div id="editor"中的id.
+      var editor = new E('#history');
+      editor.create();
+  </script>
+</head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <form th:action="@{/youdian/updateState}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${state.id}">
+            <div class="form-group">
+              <label for="title" style="color: #f854ec">动态标题</label>
+              <input id="title" style="height: 50px;" th:value="${state.title}" class="form-control" name="title" type="text" >
+            </div>
+            <div class="form-group">
+              <label for="image" style="color: #f854ec">上传图片</label>
+              <div>
+                <img src="" width="250px" height="150px" th:src="@{${state.image}}" >
+              </div>
+              <input id="image" style="height: 50px;" class="form-control" name="image" type="file" >
+            </div>
+            <div class="form-group">
+              <label for="miaoshu" style="color: #f854ec">添加描述</label>
+              <textarea id="miaoshu" style="height: 200px;" th:text="${state.miaoshu}" class="form-control" name="miaoshu" type="text" placeholder="添加图片的描述"></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">修改</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+
+  <script>NProgress.done()</script>
+</body>
+</html>

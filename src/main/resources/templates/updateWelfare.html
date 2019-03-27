@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!--引入头文件-->
+<head th:include="aside :: head"></head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" th:href="@{/youdian/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+      <div class="row">
+        <div class="col-md-4" >
+          <h2>员工福利管理</h2>
+          <form th:action="@{/youdian/updateWelfare}" enctype="multipart/form-data" method="post">
+            <input type="hidden" th:value="${welfareList[0].id}" name="id">
+            <div class="form-group">
+              <label for="miaoshu">福利简介</label>
+              <textarea id="miaoshu" style="height: 200px" th:text="${welfareList[0].miaoshu}" class="form-control" name="miaoshu" type="text" placeholder="福利简介"></textarea>
+            </div>
+            <input type="hidden" th:value="${welfareList[0].image}" name="deleteImage">
+            <div class="form-group">
+              <label for="image">插入视频<p style="color: #cc4243">(仅支持mp4文件)</p></label>
+              <input id="image" style="height: 60px" class="form-control" name="image" type="file"  >
+            </div>
+            <div class="form-group">
+              <video  controls="autoplay" width="350px" height="250px"  >
+                <source  th:src="@{${welfareList[0].image}}">
+              </video>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">修改</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--引入边缘部分-->
+  <div class="aside" th:include="aside :: aside"></div>
+  <script>NProgress.done()</script>
+</body>
+</html>
